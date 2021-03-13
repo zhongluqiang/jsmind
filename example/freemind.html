@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>jsMind</title>
+    <link type="text/css" rel="stylesheet" href="../style/jsmind.css" />
+    <style type="text/css">
+        #jsmind_container{
+            /* width:800px;
+            height:500px; */
+            border:solid 1px #ccc;
+            /*background:#f4f4f4;*/
+            background:#f4f4f4;
+        }
+    </style>
+</head>
+<body>
+<div id="jsmind_container"></div>
+<script type="text/javascript" src="../js/jsmind.js"></script>
+<script type="text/javascript" src="../js/jsmind.draggable.js"></script>
+<script type="text/javascript">
+    function load_jsmind(){
+        var mind = {
+            "meta":{
+                "name":"demo",
+                "author":"hizzgdev@163.com",
+                "version":"0.2",
+            },
+            "format":"freemind",
+            "data":`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                    <map version="0.8.1">
+                        <node ID="0sb90nmpokqups6dskq2dk1f7t" TEXT="中心主题">
+                            <node ID="3cp82kj3a1haia1t511pfjkb5i" POSITION="right" TEXT="分支主题 1" COLOR="red" EXPANDED="false" LINKURL="https://www.baidu.com/" LINKTYPE="space" >
+                                <node ID="4fdi8eund777p0va3nbfjl044ma" POSITION="right" TEXT="分支主题 12"/>
+                                <node ID="219ecl1c2ns78vsnrdjcksootfb" POSITION="right" TEXT="分支主题 13"/>
+                                <node ID="0eb89dn18ddfrcvsr4m3cdd5chc" POSITION="left" TEXT="分支主题 14"/>
+                                <node ID="1l7f29g6uop5v4vrdok4dq5qsdd" POSITION="left" TEXT="分支主题 15"/>
+                            </node>
+                            <node ID="4fdi8eund777p0va3nbfjl044m" POSITION="right" TEXT="分支主题 2"/>
+                            <node ID="219ecl1c2ns78vsnrdjcksootf" POSITION="right" TEXT="分支主题 3"/>
+                            <node ID="0eb89dn18ddfrcvsr4m3cdd5ch" POSITION="left" TEXT="分支主题 4"/>
+                            <node ID="1l7f29g6uop5v4vrdok4dq5qsd" POSITION="left" TEXT="分支主题 5"/>
+                        </node>
+                    </map>`
+        };
+        var options = {
+            container:'jsmind_container',
+            editable:true,
+            theme:'primary'
+        }
+        var jm = jsMind.show(options,mind);
+        // jm.set_readonly(true);
+        // var mind_data = jm.get_data();
+        // alert(mind_data);
+        //jm.add_node("sub2","sub23", "new node", {"background-color":"red"});
+        //jm.set_node_color('sub21', 'green', '#ccc');
+    }
+
+    load_jsmind();
+</script>
+</body>
+</html>

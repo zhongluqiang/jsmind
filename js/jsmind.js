@@ -793,6 +793,17 @@
                 var df = jm.format.freemind;
                 var node_id = xml_node.getAttribute('ID');
                 var node_topic = xml_node.getAttribute('TEXT');
+
+                // 新增几个属性，支持指定链接地址，类型，颜色，是否展开等
+                // 参考 https://github.com/hizzgdev/jsmind/issues/110
+                var node_color = xml_node.getAttribute("COLOR");
+                var node_linkurl = xml_node.getAttribute("LINKURL");
+                var node_linktype = xml_node.getAttribute("LINKTYPE");
+
+                if(node_linkurl != null) {
+                    node_topic = '<a href="' + node_linkurl + '">' + node_topic + '</a>';
+                }
+
                 // look for richcontent
                 if (node_topic == null) {
                     var topic_children = xml_node.childNodes;
@@ -2400,7 +2411,10 @@
             if (client_w < min_width) { client_w = min_width; }
             if (client_h < min_height) { client_h = min_height; }
             this.size.w = client_w;
-            this.size.h = client_h;
+
+            // 参考https://github.com/hizzgdev/jsmind/issues/74，实现折叠/展开结点时自动调整高度
+            // this.size.h = client_h;
+            this.size.h = min_height;   // 这个地方没有使用client_h这个高度，而是直接用了min_height
         },
 
         init_nodes_size: function (node) {
