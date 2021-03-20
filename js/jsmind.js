@@ -794,14 +794,24 @@
                 var node_id = xml_node.getAttribute('ID');
                 var node_topic = xml_node.getAttribute('TEXT');
 
-                // 新增几个属性，支持指定链接地址，类型，颜色，是否展开等
+                // 新增几个属性，支持指定链接地址，类型，背景颜色，是否展开等
                 // 参考 https://github.com/hizzgdev/jsmind/issues/110
                 var node_color = xml_node.getAttribute("COLOR");
                 var node_linkurl = xml_node.getAttribute("LINKURL");
                 var node_linktype = xml_node.getAttribute("LINKTYPE");
 
+                //为指定类型的链接加上Confluence的icon
                 if(node_linkurl != null) {
-                    node_topic = '<a href="' + node_linkurl + '">' + node_topic + '</a>';
+                    if(node_linktype === "space") {
+                        // <a href="/confluence/display/confluence" class="icon content-type-space">空间:</a>
+                        node_topic = '<a href="' + node_linkurl + '" class="aui-icon content-type-space" style="margin-right:5px">空间:</a>' + node_topic;
+                    } else if(node_linktype === "page") {
+                        node_topic = '<a href="' + node_linkurl + '" class="aui-icon content-type-page" style="margin-right:5px">空间:</a>' + node_topic;
+                    } else {
+                        //node_topic = '<a href="' + node_linkurl + '">' + node_topic + '</a>';
+		                //node_topic = '<a href="' + node_linkurl + '" class="aui-icon aui-confont-link" style="margin-right:5px">空间:</a>' + node_topic;
+		                node_topic = '<a href="' + node_linkurl + '" class="icon"  style="margin-right:5px;background:url(/static/jsmind/external-link.svg) no-repeat;">空间:</a>' + node_topic;
+                    }
                 }
 
                 // look for richcontent
@@ -820,6 +830,15 @@
                 var node_data = df._load_attributes(xml_node);
                 var node_expanded = ('expanded' in node_data) ? (node_data.expanded == 'true') : true;
                 delete node_data.expanded;
+
+                // 增加修改节点颜色，暂时只支持修改背景色
+                if(node_color != null) {
+                    node_data['background-color'] = node_color;
+                }
+                // 支持节点EXPANDED属性，优先使用该属性设置当前节点是否展开
+                if(node_expanded && xml_node.getAttribute("EXPANDED") == 'false') {
+                    node_expanded = false;
+                }
 
                 var node_position = xml_node.getAttribute('POSITION');
                 var node_direction = null;
