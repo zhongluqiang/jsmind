@@ -6,6 +6,11 @@
  *   https://github.com/hizzgdev/jsmind/
  */
 
+/* 增加一个on-overflow类，在需要时通过这个类禁用脑图的滚动条 */
+.no-overflow {
+    overflow:hidden !important;
+}
+
 /* important section */
 .jsmind-inner{position:relative;overflow:auto;width:100%;height:100%;}/*box-shadow:0 0 2px #000;*/
 .jsmind-inner{

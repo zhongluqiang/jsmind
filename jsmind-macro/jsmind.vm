@@ -1,0 +1,57 @@
+## Macro title: jsmind
+## Macro has a body: Y
+## Body processing: Unrendered
+## Output: Rendered mindmap
+##
+## Developed by: midlane.top
+## Date created: 2021/03/20
+## Installed by: midlane.top
+
+## Confluence Server上的jsmind宏，用于显示freemind格式的脑图，用到了jsMind库，参考 https://github.com/hizzgdev/jsmind
+## This macro renders freemind text into mindmap, jsMind is used, see https://github.com/hizzgdev/jsmind
+
+
+## @param UUID:title=UUID|type=string|required=true|default=jsmind_container|desc=UUID,用作脑图div容器的id，必须唯一
+## @param Mode:title=Mode|type=enum|enumValues=side,full|default=full|desc=布局模式，full:子节点分布在两侧，side:子节点只分布在根节点右侧，默认为full
+## @param Theme:title=Theme|type=enum|enumValues=belizehole,primary,warning,danger,success,info,greensea,nephrite,wisteria,asphalt,orange,pumpkin,pomegranate,clouds,asbestos|default=belizehole|desc=主题
+## @param Overflow:title=Overflow|type=boolean|default=false|desc=是否显示滑动条，默认不显示
+
+<ac:structured-macro ac:name="info">
+<ac:parameter ac:name="icon">false</ac:parameter>
+<ac:rich-text-body>
+
+<div id=$paramUUID></div>
+<script type="text/javascript">
+    AJS.$(document).ready(function() {
+            let mind = {
+                "meta":{
+                    "name":`$paramUUID`,
+                    "author":"midlane.top",
+                    "version":"0.2",
+                },
+                "format":"freemind",
+                "data":`$body`
+            };
+            let options = {
+                container:`$paramUUID`,
+                editable:false,
+                theme:`$paramTheme`,
+                mode:`$paramMode`
+            };
+            let jm = jsMind.show(options,mind);
+            jm.add_event_listener(function(type, data) {
+                if (type === jsMind.event_type.resize) {
+                    let height = jm.view.size.h;
+                    //console.log(height);
+                    $('#'+`$paramUUID`).height(height);
+                }
+            });
+            if(!$paramOverflow) {
+                AJS.$('#'+`$paramUUID`+'> .jsmind-inner').addClass('no-overflow');
+            }
+    });
+</script>
+
+</ac:rich-text-body>
+</ac:structured-macro>
+
