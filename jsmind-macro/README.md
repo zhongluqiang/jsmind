@@ -17,3 +17,6 @@
 ![](images/jsmind-macro.png)
 
 ![](images/example-macro.png)
+
+# 已知BUG！！！
+**传入的freemind脑图文本不能含有HTML转义字符，比如 `&amp;` 这类转义字符在解析时会出错，导致该字符后面内容丢失，脑图显示不完整。**
