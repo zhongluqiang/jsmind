@@ -801,12 +801,14 @@
                 var node_linktype = xml_node.getAttribute("LINKTYPE");
 
                 //为指定类型的链接加上Confluence的icon
+                // 如果链接类型是本站的Confluence空间和页面，那么显示对应的icon，如果是外链，显示外链的icon
+                // 空间和页面的链接必须以相对路径引入，外链必须以绝对路径引入
                 if(node_linkurl != null) {
                     if(node_linktype === "space") {
-                        // <a href="/confluence/display/confluence" class="icon content-type-space">空间:</a>
-                        node_topic = '<a href="' + node_linkurl + '" class="aui-icon content-type-space" style="margin-right:5px">空间:</a>' + node_topic;
+                        // <a href="https://www.example.com/confluence/display/confluence" class="icon content-type-space">空间:</a>
+                        node_topic = '<a href="' + window.confluence_baseurl + node_linkurl + '" class="aui-icon content-type-space" style="margin-right:5px">空间:</a>' + node_topic;
                     } else if(node_linktype === "page") {
-                        node_topic = '<a href="' + node_linkurl + '" class="aui-icon content-type-page" style="margin-right:5px">空间:</a>' + node_topic;
+                        node_topic = '<a href="' + window.confluence_baseurl + node_linkurl + '" class="aui-icon content-type-page" style="margin-right:5px">空间:</a>' + node_topic;
                     } else {
                         //node_topic = '<a href="' + node_linkurl + '">' + node_topic + '</a>';
 		                //node_topic = '<a href="' + node_linkurl + '" class="aui-icon aui-confont-link" style="margin-right:5px">空间:</a>' + node_topic;

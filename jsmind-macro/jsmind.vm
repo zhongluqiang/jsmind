@@ -38,6 +38,10 @@
                 theme:`$paramTheme`,
                 mode:`$paramMode`
             };
+
+            // 这里用window对象记录一下Confluence的baseurl，freemind中使用相对路径的方式引用Confluence的内容，可避免修改Confluence的baseurl导致脑图路径失效问题
+            window.confluence_baseurl = `$settingsManager.getGlobalSettings().getBaseUrl()`;
+
             let jm = jsMind.show(options,mind);
             jm.add_event_listener(function(type, data) {
                 if (type === jsMind.event_type.resize) {
