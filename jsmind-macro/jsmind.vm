@@ -15,6 +15,9 @@
 ## @param Mode:title=Mode|type=enum|enumValues=side,full|default=full|desc=布局模式，full:子节点分布在两侧，side:子节点只分布在根节点右侧，默认为full
 ## @param Theme:title=Theme|type=enum|enumValues=belizehole,primary,warning,danger,success,info,greensea,nephrite,wisteria,asphalt,orange,pumpkin,pomegranate,clouds,asbestos|default=belizehole|desc=主题
 ## @param Overflow:title=Overflow|type=boolean|default=false|desc=是否显示滑动条，默认不显示
+## @param Public:title=Public|type=boolean|default=true|desc=是否对访客用户公开
+
+#if (($paramPublic==true) || ($action.authenticatedUser))
 
 <ac:structured-macro ac:name="info">
 <ac:parameter ac:name="icon">false</ac:parameter>
@@ -59,3 +62,4 @@
 </ac:rich-text-body>
 </ac:structured-macro>
 
+#end
