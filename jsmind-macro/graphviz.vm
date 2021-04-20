@@ -1,0 +1,43 @@
+## Macro title: graphviz
+## Macro has a body: Y
+## Body processing: Unrendered
+## Output: Rendered graphviz
+##
+## Developed by: midlane.top
+## Date created: 2021/04/20
+## Installed by: midlane.top
+
+## 将graphviz图形数据渲染成svg，使用了viz.js库，参考https://github.com/mdaines/viz.js/
+## This macro renders graphviz dot text into svg，see https://github.com/mdaines/viz.js/
+
+
+## @param UUID:title=UUID|type=string|required=true|default=graphviz_container|desc=UUID,用作graphviz div容器的id，必须唯一
+## @param Public:title=Public|type=boolean|default=true|desc=是否对访客用户公开
+
+#if (($paramPublic==true) || ($action.authenticatedUser))
+
+<ac:structured-macro ac:name="panel">
+<ac:parameter ac:name="borderStyle">none</ac:parameter>
+<ac:rich-text-body>
+
+<div id=$paramUUID></div>
+<script type="text/javascript">
+    AJS.$(document).ready(function() {
+        if(!window.viz) {
+            console.log(' new Viz()');
+            window.viz = new Viz();
+        }
+        window.viz.renderSVGElement(`$body`)
+        .then(function(element) {
+            AJS.$('#'+`$paramUUID`).append(element);
+        })
+        .catch(error => {
+            window.viz = new Viz();
+            console.error(error);
+        });
+    });
+</script>
+
+</ac:rich-text-body>
+</ac:structured-macro>
+#end
