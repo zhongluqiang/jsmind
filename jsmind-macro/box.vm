@@ -1,0 +1,19 @@
+## Macro title: box
+## Macro has a body: Y
+## Body processing: rendered
+## Output: info box with no icon and title
+##
+## Developed by: midlane.top
+## Date created: 2021/05/17
+## Installed by: midlane.top
+
+## info box with no icon and title
+
+## @param notused: title=notused|type=string|required=false|default=notused|desc=未使用，这个参数只用于消除“有用户宏未在其模板中包含任何元数据”警告
+
+<ac:structured-macro ac:name="info">
+<ac:parameter ac:name="icon">false</ac:parameter>
+<ac:rich-text-body>
+$body
+</ac:rich-text-body>
+</ac:structured-macro>
